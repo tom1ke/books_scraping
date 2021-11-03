@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from word2number import w2n
 
 base_url = 'http://books.toscrape.com/'
 url = 'http://books.toscrape.com/catalogue/sharp-objects_997/index.html'
@@ -12,6 +13,7 @@ title = soup.find('h1').text
 category = soup.find_all('a')[3].text
 
 review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
+review_rating = w2n.word_to_num(review_rating)
 
 product_description = soup.find_all('meta')[2]
 
