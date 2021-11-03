@@ -3,11 +3,12 @@ from bs4 import BeautifulSoup
 from word2number import w2n
 import csv
 import time
+import re
 
 start_time = time.time()
 
 base_url = 'http://books.toscrape.com/'
-url = 'http://books.toscrape.com/catalogue/sharp-objects_997/index.html'
+url = 'http://books.toscrape.com/catalogue/ready-player-one_209/index.html'
 
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
@@ -27,7 +28,8 @@ price_tax_excl = soup.find_all('td')[2].text
 
 price_tax_incl = soup.find_all('td')[3].text
 
-number_available = soup.find_all('td')[5].text[10:13]
+number_available = soup.find_all('td')[5].text
+number_available = re.sub("[^0-9]", "", number_available)
 
 image_url = soup.find('img')['src']
 image_url = base_url + image_url
