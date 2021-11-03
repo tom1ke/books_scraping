@@ -28,4 +28,14 @@ number_available = soup.find_all('td')[5].text[10:13]
 image_url = soup.find('img')['src']
 image_url = base_url + image_url
 
+output = {variable: eval(variable) for variable in ['title',
+                                                    'category',
+                                                    'review_rating',
+                                                    'product_description',
+                                                    'upc',
+                                                    'price_tax_excl',
+                                                    'price_tax_incl',
+                                                    'number_available',
+                                                    'image_url',
+                                                    'url']}
 
