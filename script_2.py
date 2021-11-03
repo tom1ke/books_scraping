@@ -8,6 +8,9 @@ import re
 start_time = time.time()
 
 base_url = 'http://books.toscrape.com/'
-url = 'http://books.toscrape.com/catalogue/ready-player-one_209/index.html'
+url = 'http://books.toscrape.com/catalogue/category/books/mystery_3/index.html'
+
+page = requests.get(url)
+soup = BeautifulSoup(page.content, 'html.parser')
 
 print(time.time() - start_time, "seconds")
