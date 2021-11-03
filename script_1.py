@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from word2number import w2n
+import csv
 
 base_url = 'http://books.toscrape.com/'
 url = 'http://books.toscrape.com/catalogue/sharp-objects_997/index.html'
@@ -39,3 +40,7 @@ output = {variable: eval(variable) for variable in ['title',
                                                     'image_url',
                                                     'url']}
 
+with open('data/output_1.csv', 'w') as csv_file:
+    writer = csv.writer(csv_file)
+    for key, value in output.items():
+        writer.writerow([key, value])
