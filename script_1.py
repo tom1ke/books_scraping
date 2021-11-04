@@ -5,6 +5,7 @@ import csv
 import time
 import re
 
+# ---SETUP---
 start_time = time.time()
 
 base_url = 'http://books.toscrape.com/'
@@ -13,6 +14,16 @@ url = 'http://books.toscrape.com/catalogue/ready-player-one_209/index.html'
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 
+# ---FUNCTIONS---
+
+def write_info_csv():
+    with open(f'data/{title}.csv', 'w', encoding='utf-8-sig') as csv_file:
+        writer = csv.DictWriter(csv_file, output)
+        writer.writeheader()
+        writer.writerow(output)
+
+
+# ---SCRAPING---
 title = soup.find('h1').text
 
 category = soup.find_all('a')[3].text
@@ -34,6 +45,7 @@ number_available = re.sub("[^0-9]", "", number_available)
 image_url = soup.find('img')['src']
 image_url = base_url + image_url
 
+# ---BOOK INFO TO DICTIONARY---
 output = {variable: eval(variable) for variable in ['title',
                                                     'category',
                                                     'review_rating',
@@ -45,9 +57,7 @@ output = {variable: eval(variable) for variable in ['title',
                                                     'image_url',
                                                     'url']}
 
-with open(f'data/{title}.csv', 'w', encoding='utf-8-sig') as csv_file:
-    writer = csv.DictWriter(csv_file, output)
-    writer.writeheader()
-    writer.writerow(output)
+# ---WRITING CSV---
+write_info_csv()
 
 print(time.time() - start_time, "seconds")
