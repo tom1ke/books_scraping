@@ -20,7 +20,7 @@ category = soup.find_all('a')[3].text
 review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
 review_rating = w2n.word_to_num(review_rating)
 
-product_description = soup.find_all('meta')[2]
+product_description = soup.find_all('article')[0].find_all('p')[3].text
 
 upc = soup.find_all('td')[0].text
 
