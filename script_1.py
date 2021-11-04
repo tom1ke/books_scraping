@@ -45,9 +45,9 @@ output = {variable: eval(variable) for variable in ['title',
                                                     'image_url',
                                                     'url']}
 
-with open('data/output_1.csv', 'w') as csv_file:
-    writer = csv.writer(csv_file)
-    for key, value in output.items():
-        writer.writerow([key, value])
+with open(f'data/{title}.csv', 'w', encoding='utf-8-sig') as csv_file:
+    writer = csv.DictWriter(csv_file, output)
+    writer.writeheader()
+    writer.writerow(output)
 
 print(time.time() - start_time, "seconds")
