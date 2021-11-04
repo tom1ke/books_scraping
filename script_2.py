@@ -13,4 +13,11 @@ url = 'http://books.toscrape.com/catalogue/category/books/mystery_3/index.html'
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 
+
+def get_books_url():
+    books = soup.find_all('div', class_='image_container')
+    for book in books:
+        return book.find('a')['href']
+
+
 print(time.time() - start_time, "seconds")
