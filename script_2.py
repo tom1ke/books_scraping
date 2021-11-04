@@ -20,4 +20,11 @@ def get_books_url():
         return book.find('a')['href']
 
 
+with open(f'data/{category}.csv', 'a+', encoding='utf-8-sig') as csv_file:
+    file_empty = os.stat(f'data/{title}.csv').st_size == 0
+    writer = csv.DictWriter(csv_file, output)
+    if file_empty:
+        writer.writeheader()
+    writer.writerow(output)
+
 print(time.time() - start_time, "seconds")
