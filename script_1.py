@@ -4,6 +4,7 @@ from word2number import w2n
 import csv
 import time
 import re
+from urllib.parse import urljoin
 
 # ---SETUP---
 start_time = time.time()
@@ -43,7 +44,7 @@ number_available = soup.find_all('td')[5].text
 number_available = re.sub("[^0-9]", "", number_available)
 
 image_url = soup.find('img')['src']
-image_url = base_url + image_url
+image_url = urljoin(base_url, image_url)
 
 # ---BOOK INFO TO DICTIONARY---
 output = {variable: eval(variable) for variable in ['title',
