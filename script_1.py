@@ -17,11 +17,18 @@ soup = BeautifulSoup(page.content, 'html.parser')
 
 # ---FUNCTIONS---
 
+
 def write_info_csv():
     with open(f'data/{title}.csv', 'w', encoding='utf-8-sig') as csv_file:
         writer = csv.DictWriter(csv_file, output)
         writer.writeheader()
         writer.writerow(output)
+
+
+def get_image():
+    download_image = requests.get(image_url).content
+    with open(f'data/images/{title}.jpg', 'wb') as jpg_file:
+        jpg_file.write(download_image)
 
 
 # ---SCRAPING---
@@ -58,7 +65,9 @@ output = {variable: eval(variable) for variable in ['title',
                                                     'image_url',
                                                     'url']}
 
-# ---WRITING CSV---
+# ---WRITING CSV & GETTIN IMAGE---
 write_info_csv()
+
+get_image()
 
 print(time.time() - start_time, "seconds")
