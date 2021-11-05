@@ -19,7 +19,7 @@ soup = BeautifulSoup(page.content, 'html.parser')
 
 
 def write_info_csv():
-    with open(f'data/{title}.csv', 'w', encoding='utf-8-sig') as csv_file:
+    with open(f'data/script_1/{title}.csv', 'w', encoding='utf-8-sig') as csv_file:
         writer = csv.DictWriter(csv_file, output)
         writer.writeheader()
         writer.writerow(output)
@@ -27,7 +27,7 @@ def write_info_csv():
 
 def get_image():
     download_image = requests.get(image_url).content
-    with open(f'data/images/{title}.jpg', 'wb') as jpg_file:
+    with open(f'data/script_1/images/{title}.jpg', 'wb') as jpg_file:
         jpg_file.write(download_image)
 
 
