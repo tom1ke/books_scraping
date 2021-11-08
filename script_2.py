@@ -5,6 +5,7 @@ import csv
 import time
 import re
 import os
+from os.path import exists
 from urllib.parse import urljoin
 
 start_time = time.time()
@@ -42,9 +43,18 @@ def get_books_url():
             break
 
 
+def create_dir():
+    cat_exists = exists(f'data/script_2/{category}')
+    cat_img_exists = exists(f'data/script_2/{category}/images')
+    if not cat_exists:
+        os.mkdir(f'data/script_2/{category}')
+    if not cat_img_exists:
+        os.mkdir(f'data/script_2/{category}/images')
+
+
 def write_info_csv():
-    with open(f'data/script_2/{category}.csv', 'a+', encoding='utf-8-sig') as csv_file:
-        file_empty = os.stat(f'data/script_2/{category}.csv').st_size == 0
+    with open(f'data/script_2/{category}/{category}.csv', 'a', encoding='utf-8-sig') as csv_file:
+        file_empty = os.stat(f'data/script_2/{category}/{category}.csv').st_size == 0
         writer = csv.DictWriter(csv_file, output)
         if file_empty:
             writer.writeheader()
@@ -53,7 +63,7 @@ def write_info_csv():
 
 def get_image():
     download_image = requests.get(image_url).content
-    with open(f'data/script_2/images/{title}.jpg', 'wb') as jpg_file:
+    with open(f'data/script_2/{category}/images/{title}.jpg', 'wb') as jpg_file:
         jpg_file.write(download_image)
 
 
@@ -104,6 +114,8 @@ for item in book_list:
                                                         'url']}
 
     # ---WRITING CSV & GETTIN IMAGE---
+    create_dir()
+
     write_info_csv()
 
     get_image()
