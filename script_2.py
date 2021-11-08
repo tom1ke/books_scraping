@@ -29,16 +29,16 @@ def get_books_url():
     read_page(category_url)
     while True:
         books = soup.find_all('h3')
-        find_next = soup.find_all('li', class_='next')[0].find('a')['href']
-        next_url = urljoin(category_url, find_next)
-        print(next_url)
         for book in books:
             books_href = book.find('a')['href']
             books_url = urljoin(category_url, books_href)
             book_list.append(books_url)
-        if not IndexError:
+        try:
+            find_next = soup.find_all('li', class_='next')[0].find('a')['href']
+            next_url = urljoin(category_url, find_next)
+            print(next_url)
             read_page(next_url)
-        else:
+        except IndexError:
             break
 
 
