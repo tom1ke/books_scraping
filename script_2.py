@@ -78,7 +78,7 @@ for item in book_list:
     # ---SCRAPING---
     read_page(item)
 
-    title = soup.find('h1').text
+    title = soup.find('h1').text.replace('/', '-')
 
     category = soup.find_all('a')[3].text
 
