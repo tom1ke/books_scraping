@@ -11,11 +11,7 @@ start_time = time.time()
 
 # ---SETUP---
 
-base_url = 'http://books.toscrape.com'
-# url = 'http://books.toscrape.com/catalogue/category/books/mystery_3/index.html'
-#
-# page = requests.get(url)
-# soup = BeautifulSoup(page.content, 'html.parser')
+category_url = 'http://books.toscrape.com/catalogue/category/books/mystery_3/index.html'
 
 book_list = []
 
@@ -23,23 +19,28 @@ book_list = []
 
 
 def read_page(url):
+    global soup
     page = requests.get(url)
-    return BeautifulSoup(page.content, 'html.parser') as soup
+    soup = BeautifulSoup(page.content, 'html.parser')
+    return soup
 
 
 def get_books_url():
-    read_page('http://books.toscrape.com/catalogue/category/books/mystery_3/index.html')
-    books = soup.find_all('h3')
-    find_next = soup.find_all('li', class_='next')[0].find('a')['href']
-    next_url = urljoin(url, find_next)
-    print(next_url)
-    for book in books:
-        books_href = book.find('a')['href']
-        books_url = urljoin(url, books_href)
-        book_list.append(books_url)
-        if not find_next:
+    read_page(category_url)
+    while True:
+        books = soup.find_all('h3')
+        find_next = soup.find_all('li', class_='next')[0].find('a')['href']
+        next_url = urljoin(category_url, find_next)
+        print(next_url)
+        for book in books:
+            books_href = book.find('a')['href']
+            books_url = urljoin(category_url, books_href)
+            book_list.append(books_url)
+        if not IndexError:
+            read_page(next_url)
+        else:
             break
-        read_page(next_url)
+
 
 def write_info_csv():
     with open(f'data/script_2/{category}.csv', 'a+', encoding='utf-8-sig') as csv_file:
@@ -61,6 +62,7 @@ def get_image():
 
 get_books_url()
 print(book_list)
+print(len(book_list))
 
 # for _ in book_list:
 #     # ---SCRAPING---
