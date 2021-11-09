@@ -56,17 +56,17 @@ def get_books_url():
 
 
 def create_dir():
-    cat_exists = exists(f'data/script_2/{category}')
-    cat_img_exists = exists(f'data/script_2/{category}/images')
+    cat_exists = exists(f'data/script_3/{category}')
+    cat_img_exists = exists(f'data/script_3/{category}/images')
     if not cat_exists:
-        os.mkdir(f'data/script_2/{category}')
+        os.mkdir(f'data/script_3/{category}')
     if not cat_img_exists:
-        os.mkdir(f'data/script_2/{category}/images')
+        os.mkdir(f'data/script_3/{category}/images')
 
 
 def write_info_csv():
-    with open(f'data/script_2/{category}/{category}.csv', 'a', encoding='utf-8-sig') as csv_file:
-        file_empty = os.stat(f'data/script_2/{category}/{category}.csv').st_size == 0
+    with open(f'data/script_3/{category}/{category}.csv', 'a', encoding='utf-8-sig') as csv_file:
+        file_empty = os.stat(f'data/script_3/{category}/{category}.csv').st_size == 0
         writer = csv.DictWriter(csv_file, output)
         if file_empty:
             writer.writeheader()
@@ -75,7 +75,7 @@ def write_info_csv():
 
 def get_image():
     download_image = requests.get(image_url).content
-    with open(f'data/script_2/{category}/images/{title}.jpg', 'wb') as jpg_file:
+    with open(f'data/script_3/{category}/images/{title}.jpg', 'wb') as jpg_file:
         jpg_file.write(download_image)
 
 
