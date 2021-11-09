@@ -19,9 +19,9 @@ book_list = []
 # ---FUNCTIONS---
 
 
-def read_page(url):
+def read_page(selected_url):
     global soup
-    page = requests.get(url)
+    page = requests.get(selected_url)
     soup = BeautifulSoup(page.content, 'html.parser')
     return soup
 
