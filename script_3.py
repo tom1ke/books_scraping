@@ -31,7 +31,6 @@ def get_category_url():
     global category_url
     read_page(site_url)
     categories = soup.find_all('li')[3:53]
-    print(categories)
     for category in categories:
         category_href = category.find('a')['href']
         category_url = urljoin(site_url, category_href)
@@ -84,12 +83,15 @@ def get_image():
 get_category_url()
 print(category_list)
 print(len(category_list))
-
-for cats in category_list:
-    read_page(cats)
+index = 0
+while index < len(category_list):
+    category_url = category_list[index]
+    book_list.clear()
     get_books_url()
     print(book_list)
     print(len(book_list))
+    index += 1
+    print(index)
 
     for item in book_list:
         # ---SCRAPING---
@@ -136,6 +138,5 @@ for cats in category_list:
         write_info_csv()
 
         get_image()
-
 
 print(time.time() - start_time, "seconds")
