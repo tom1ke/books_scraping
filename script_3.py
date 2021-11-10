@@ -55,8 +55,14 @@ def get_books_url():
 
 
 def create_dir():
+    data_exists = exists('data')
+    script_dir_exists = exists('data/script_3')
     cat_exists = exists(f'data/script_3/{category}')
     cat_img_exists = exists(f'data/script_3/{category}/images')
+    if not data_exists:
+        os.mkdir('data')
+    if not script_dir_exists:
+        os.mkdir('data/script_3')
     if not cat_exists:
         os.mkdir(f'data/script_3/{category}')
     if not cat_img_exists:
