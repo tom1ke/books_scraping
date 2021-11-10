@@ -4,6 +4,8 @@ from word2number import w2n
 import csv
 import time
 import re
+import os
+from os.path import exists
 from urllib.parse import urljoin
 
 # ---SETUP---
@@ -16,6 +18,18 @@ page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 
 # ---FUNCTIONS---
+
+
+def create_dir():
+    data_exists = exists('data')
+    script_dir_exists = exists('data/script_1')
+    img_exists = exists(f'data/script_1/images')
+    if not data_exists:
+        os.mkdir('data')
+    if not script_dir_exists:
+        os.mkdir('data/script_1')
+    if not img_exists:
+        os.mkdir('data/script_1/images')
 
 
 def write_info_csv():
@@ -66,6 +80,8 @@ output = {variable: eval(variable) for variable in ['title',
                                                     'url']}
 
 # ---WRITING CSV & GETTIN IMAGE---
+create_dir()
+
 write_info_csv()
 
 get_image()
