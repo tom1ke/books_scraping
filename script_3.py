@@ -31,8 +31,8 @@ def get_category_url():
     global category_url
     read_page(site_url)
     categories = soup.find_all('li')[3:53]
-    for category in categories:
-        category_href = category.find('a')['href']
+    for cat in categories:
+        category_href = cat.find('a')['href']
         category_url = urljoin(site_url, category_href)
         category_list.append(category_url)
 
@@ -90,6 +90,7 @@ get_category_url()
 print(category_list)
 print(len(category_list))
 index = 0
+
 while index < len(category_list):
     category_url = category_list[index]
     book_list.clear()
