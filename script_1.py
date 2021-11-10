@@ -8,16 +8,21 @@ import os
 from os.path import exists
 from urllib.parse import urljoin
 
-# ---SETUP---
 start_time = time.time()
+
+# ---SETUP---
 
 base_url = 'http://books.toscrape.com/'
 url = 'http://books.toscrape.com/catalogue/ready-player-one_209/index.html'
 
-page = requests.get(url)
-soup = BeautifulSoup(page.content, 'html.parser')
-
 # ---FUNCTIONS---
+
+
+def read_page(selected_url):
+    global soup
+    page = requests.get(selected_url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    return soup
 
 
 def create_dir():
@@ -46,6 +51,9 @@ def get_image():
 
 
 # ---SCRAPING---
+
+read_page(url)
+
 title = soup.find('h1').text
 
 category = soup.find_all('a')[3].text
