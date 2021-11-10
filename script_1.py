@@ -55,7 +55,7 @@ def get_image():
 
 read_page(url)
 
-title = soup.find('h1').text
+title = soup.find('h1').text.replace('/', '-')
 
 category = soup.find_all('a')[3].text
 
