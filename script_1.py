@@ -12,8 +12,9 @@ start_time = time.time()
 
 # ---SETUP---
 
-base_url = 'http://books.toscrape.com/'
 url = 'http://books.toscrape.com/catalogue/ready-player-one_209/index.html'
+
+base_url = 'http://books.toscrape.com/'
 
 # ---FUNCTIONS---
 
