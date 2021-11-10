@@ -23,7 +23,7 @@ soup = BeautifulSoup(page.content, 'html.parser')
 def create_dir():
     data_exists = exists('data')
     script_dir_exists = exists('data/script_1')
-    img_exists = exists(f'data/script_1/images')
+    img_exists = exists('data/script_1/images')
     if not data_exists:
         os.mkdir('data')
     if not script_dir_exists:
