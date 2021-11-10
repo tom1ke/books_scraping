@@ -5,7 +5,8 @@ Veuillez lire les instructions qui suivent. Elles vous permettront de paramétre
 ## Paramétrage 
 
 - Cloner le repository 
-- Créer un environnement virtuel à la racine du projet
+- Créer un environnement virtuel à la racine du projet avec la commande *$ python3 -m venv env*
+- Activer l'environnement virtuel avec la commande *$ source env/bin/activate*
 - Utiliser la commande *$ pip install -r requirements.txt* pour installer les modules et paquets nécessaires automatiquement
 
 ## Exécution des différents scripts
