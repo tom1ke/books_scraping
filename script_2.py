@@ -7,6 +7,7 @@ import re
 import os
 from os.path import exists
 from urllib.parse import urljoin
+from slugify import slugify
 
 start_time = time.time()
 
@@ -84,12 +85,11 @@ for item in book_list:
     # ---SCRAPING---
     read_page(item)
 
-    title = soup.find('h1').text.replace('/', '-')
+    title = slugify(soup.find('h1').text)
 
-    category = soup.find_all('a')[3].text
+    category = slugify(soup.find_all('a')[3].text)
 
-    review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
-    review_rating = w2n.word_to_num(review_rating)
+    review_rating = w2n.word_to_num(soup.find_all('p', class_='star-rating')[0].get('class')[1])
 
     product_description = soup.find_all('article')[0].find_all('p')[3].text
 
@@ -99,11 +99,11 @@ for item in book_list:
 
     price_tax_incl = soup.find_all('td')[3].text
 
-    number_available = soup.find_all('td')[5].text
-    number_available = re.sub("[^0-9]", "", number_available)
+    number_available = re.sub("[^0-9]", "", soup.find_all('td')[5].text)
 
-    image_url = soup.find('img')['src']
-    image_url = urljoin(item, image_url)
+    image_url = urljoin(item, soup.find('img')['src'])
+
+    image_path = os.path.join(os.path.abspath(os.getcwd()), f'data/script_1/images/{title}.jpg')
 
     url = item
 
@@ -117,6 +117,7 @@ for item in book_list:
                                                         'price_tax_incl',
                                                         'number_available',
                                                         'image_url',
+                                                        'image_path',
                                                         'url']}
 
     # ---WRITING CSV & GETTIN IMAGE---
